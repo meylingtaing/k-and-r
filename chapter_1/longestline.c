@@ -30,8 +30,19 @@ int getline_stdin(char s[], int lim) {
 	int c, i;
 	int len;
 
+/*
 	for (i = 0; i < lim-1 && (c = getchar()) != EOF && c != '\n'; i++)
 		s[i] = c;
+*/
+	// Ex 2-2
+	for (i = 0; i < lim-1; i++) {
+		c = getchar();
+		if (c == EOF)
+			break;
+		if (c == '\n')
+			break;
+		s[i] = c;
+	}
 
 	if (c == '\n') {
 		s[i] = c;
