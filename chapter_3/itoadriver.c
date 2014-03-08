@@ -13,6 +13,7 @@
 void itoa(int n, char s[]);
 void reverse(char* str);
 void itob(int n, char s[], int b);
+void itoan(int n, char s[], int len);
 
 int main() {
 	char str[BUFF];
@@ -31,6 +32,11 @@ int main() {
 	printf("256 in binary: %s\n", str);
 	itob(256, str, 3);
 	printf("256 in ternary: %s\n", str);
+	itoan(256, str, 10);
+	printf("256 using itoan: %s\n", str);
+	itoan(-256, str, 10);
+	printf("-256 using itoan: %s\n", str);
+
 
 	return 0;
 }
@@ -55,6 +61,41 @@ void itoa(int n, char s[]) {
 
 	if (sign < 0)
 		s[i++] = '-';
+
+	s[i] = '\0';
+
+	// So there's no way that the LSD is a 9, so this hack should work
+	if (largest_neg)
+		s[0] += 1;
+
+	reverse(s);
+}
+
+/* Write version of itoa that takes a third argument, minimum string length */
+void itoan(int n, char s[], int len) {
+	int i, sign;
+	int largest_neg = 0;
+
+	if (n == INT_MIN) {
+		n++;
+		largest_neg = 1;
+	}
+
+	if ( (sign=n) < 0)
+		n = -n;
+
+	i = 0;
+	do {
+		s[i++] = n % 10 + '0';
+	} while ( (n/=10) > 0);
+
+	if (sign < 0)
+		s[i++] = '-';
+
+	// Check to see if the length is long enough
+	while (i < len) {
+		s[i++] = ' ';
+	}
 
 	s[i] = '\0';
 
