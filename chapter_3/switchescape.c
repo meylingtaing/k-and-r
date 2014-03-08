@@ -1,6 +1,8 @@
 /* Write function escape(s,t) that converts certain chars to visible escape
    sequences. Also write function for the other way */
 
+// TODO: Add the other escape sequences...
+
 #include <stdio.h>
 
 #define OTHER 0
@@ -106,4 +108,6 @@ void unescape(char* s, char* t) {
 		}
 		i++;
 	}
+
+	s[j++] = 0;
 }
