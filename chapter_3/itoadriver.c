@@ -90,7 +90,7 @@ void itob(int n, char s[], int b) {
 	// Slightly more complicated hack, because it might overflow
 	if (largest_neg) {
 		i = 0;
-		while (s[i] == 9)
+		while (s[i] == (b-1))
 			s[i++] = 0;
 
 		if (s[i] == '-') {
