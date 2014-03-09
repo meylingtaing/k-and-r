@@ -9,6 +9,8 @@
 #define TAN '3'
 #define EXP '4'
 #define POW '5'
+#define VARIABLE '6'
+#define ASSIGN '7'
 
 int getch(void);
 void ungetch(int c);
@@ -32,6 +34,17 @@ int getop(char s[]) {
 		ungetch(c);
 		if (!isdigit(c) && c != '.')
 			return sign;
+	}
+
+	// Check for variable to use
+	if (isupper(c)) {
+		return VARIABLE;
+	}
+
+	// Check for variable assignment
+	if (c == '=') {
+		s[0] = getch();
+		return ASSIGN;
 	}
 
 	// Check for sin, cos, tan, exp, pow

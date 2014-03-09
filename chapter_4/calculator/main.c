@@ -1,7 +1,9 @@
 /* Simple calculator */
 /* Add the modulus operator */
-/* Now pressing enter peeks, and doesn't pop */
+/* Now pressing enter peeks, and doesn't pop, and commands for clear and 
+   swap and repeat operand */
 /* Add sin, exp, and pow */
+/* Add commands for handling variables */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,6 +16,8 @@
 #define TAN '3'
 #define EXP '4'
 #define POW '5'
+#define VARIABLE '6'
+#define ASSIGN '7'
 
 int getop(char opstring[]);
 void push(double num);
@@ -22,6 +26,8 @@ double peek(void);
 void duptop(void);
 void swaptop2(void);
 void clear(void);
+
+double variables[26] = {0};
 
 // But it's a polish calculator
 int main() {
@@ -34,6 +40,15 @@ int main() {
 		switch (type) {
 			case NUMBER:
 				push(atof(s));
+				break;
+			case VARIABLE:
+				push(variables[s[0] - 'A']);
+				break;
+			case ASSIGN:
+				if (s[0] < 'A' || s[0] > 'Z')
+					printf("Error: Not a proper variable name\n");
+				else
+					variables[s[0] - 'A'] = pop();
 				break;
 			case '+':
 				push(pop() + pop());
