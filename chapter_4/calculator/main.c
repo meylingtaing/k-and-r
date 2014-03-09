@@ -1,4 +1,5 @@
 /* Simple calculator */
+/* Add the modulus operator */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -38,6 +39,12 @@ int main() {
 					push(pop() / op2);
 				else
 					printf("Error: Zero division\n");
+				break;
+			case '%':
+				op2 = pop();
+				if (op2 != 0.0)
+					push((int)pop() % (int)op2);
+				else printf("Error: Zero division with modulus\n");
 				break;
 			case '\n':
 				printf("\t%.8g\n", pop());

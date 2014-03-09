@@ -9,8 +9,10 @@ double val[MAXVAL];	// Value stack
 
 // push: push f onto value stack
 void push(double f) {
-	if (sp < MAXVAL)
+	if (sp < MAXVAL) { 
+		//printf("Pushing value %g\n", f);
 		val[sp++] = f;
+	}
 	else
 		printf("Error: stack is full, can't push %g\n", f);
 }

@@ -7,15 +7,28 @@
 int getch(void);
 void ungetch(int c);
 
+/* Be able to deal with negative numbers */
+
 // getop: get next operator or numeric operand
 int getop(char s[]) {
 	int i, c;
+	char sign;
 
 	// Get past all leading whitespace
 	while ( (s[0] = c = getch()) == ' ' || c == '\t');
 
-	// Return whatever c is if it's not a number
 	s[1] = '\0';
+
+	// Check for + or -
+	if (c == '-' || c == '+') {
+		sign = c;
+		c = getch();
+		ungetch(c);
+		if (!isdigit(c) && c != '.')
+			return sign;
+	}
+
+	// Return whatever c is if it's not a number
 	if (!isdigit(c) && c != '.')
 		return c;
 
@@ -30,7 +43,7 @@ int getop(char s[]) {
 
 	s[i] = '\0';
 	if (c != EOF)
-		ungetch(c);;
+		ungetch(c);
 
 	return NUMBER;
 }
