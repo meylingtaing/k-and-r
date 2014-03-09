@@ -2,10 +2,6 @@
 /* Add commands to print out top element of stack without popping it, to 
    duplicate it, and to swap the top two elements. Also clear the stack */
 
-// I cheated, and didn't actually add the commands to the program, because I 
-// don't really understand what the book is asking for, but I'll add a
-// TODO: and maybe get back to ex 4-4 another day
-
 #include <stdio.h>
 
 #define MAXVAL 100	// max depth of value stack
