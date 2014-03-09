@@ -1,4 +1,10 @@
 /* Push and pop operations */
+/* Add commands to print out top element of stack without popping it, to 
+   duplicate it, and to swap the top two elements. Also clear the stack */
+
+// I cheated, and didn't actually add the commands to the program, because I 
+// don't really understand what the book is asking for, but I'll add a
+// TODO: and maybe get back to ex 4-4 another day
 
 #include <stdio.h>
 
@@ -25,4 +31,39 @@ double pop(void) {
 		printf("Error: stack empty\n");
 		return 0.0;
 	}
+}
+
+// peek: look at top element of stack
+double peek(void) {
+	if (sp > 0)
+		return val[sp - 1];
+	else {
+		printf("Error: stack empty\n");
+		return 0.0;
+	}
+}
+
+void duptop(void) {
+	if (sp > 0 && sp < MAXVAL) {
+		push(peek());
+	}
+	else
+		printf("Error: Stack is either empty or full");
+}
+
+void swaptop2(void) {
+	double top1, top2;
+
+	if (sp > 1) {
+		top1 = pop();
+		top2 = pop();
+		push(top1);
+		push(top2);
+	}
+	else
+		printf("Error: Stack contains less than 2 elements\n");
+}
+
+void clear(void) {
+	sp = 0;
 }
