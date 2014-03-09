@@ -1,5 +1,6 @@
 /* Simple calculator */
 /* Add the modulus operator */
+/* Now pressing enter peeks, and doesn't pop */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,6 +11,10 @@
 int getop(char opstring[]);
 void push(double num);
 double pop(void);
+double peek(void);
+void duptop(void);
+void swaptop2(void);
+void clear(void);
 
 // But it's a polish calculator
 int main() {
@@ -46,8 +51,20 @@ int main() {
 					push((int)pop() % (int)op2);
 				else printf("Error: Zero division with modulus\n");
 				break;
+			case 'd':
+				// d for duplicate
+				duptop();
+				break;
+			case 's':
+				// s for swap
+				swaptop2();
+				break;
+			case 'c':
+				// c for clear
+				clear();
+				break;
 			case '\n':
-				printf("\t%.8g\n", pop());
+				printf("\t%.8g\n", peek());
 				break;
 			default:
 				printf("Error: unknown command %s\n", s);
