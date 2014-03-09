@@ -1,12 +1,19 @@
 /* Simple calculator */
 /* Add the modulus operator */
 /* Now pressing enter peeks, and doesn't pop */
+/* Add sin, exp, and pow */
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 #define MAXOP 100	// max size of operator or operand
 #define NUMBER '0'	// signal that a number was found
+#define SIN '1'
+#define COS '2'
+#define TAN '3'
+#define EXP '4'
+#define POW '5'
 
 int getop(char opstring[]);
 void push(double num);
@@ -50,6 +57,23 @@ int main() {
 				if (op2 != 0.0)
 					push((int)pop() % (int)op2);
 				else printf("Error: Zero division with modulus\n");
+				break;
+			case SIN:
+				push(sin(pop()));
+				break;
+			case COS:
+				push(cos(pop()));
+				break;
+			case TAN:
+				// Not bothering to worry about multiples of pi/2
+				push(tan(pop()));
+				break;
+			case EXP:
+				push(exp(pop()));
+				break;
+			case POW:
+				op2 = pop();
+				push(pow(pop(), op2));
 				break;
 			case 'd':
 				// d for duplicate

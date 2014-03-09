@@ -1,8 +1,14 @@
 /* getop function */
 #include <ctype.h>
 #include <stdio.h>
+#include <string.h>
 
 #define NUMBER '0'
+#define SIN '1'
+#define COS '2'
+#define TAN '3'
+#define EXP '4'
+#define POW '5'
 
 int getch(void);
 void ungetch(int c);
@@ -26,6 +32,29 @@ int getop(char s[]) {
 		ungetch(c);
 		if (!isdigit(c) && c != '.')
 			return sign;
+	}
+
+	// Check for sin, cos, tan, exp, pow
+	// Grab three letters
+	if (islower(c)) {
+		s[1] = getch();
+		if (s[1] == '\n') {
+			ungetch(s[1]);
+			return c;
+		}
+		s[2] = getch();
+		if (strncmp(s, "sin", 3) == 0)
+			return SIN;
+		else if (strncmp(s, "cos", 3) == 0)
+			return COS;
+		else if (strncmp(s, "tan", 3) == 0)
+			return TAN;
+		else if (strncmp(s, "exp", 3) == 0)
+			return EXP;
+		else if (strncmp(s, "pow", 3) == 0)
+			return POW;
+		ungetch(s[1]);
+		ungetch(s[2]);
 	}
 
 	// Return whatever c is if it's not a number
