@@ -13,7 +13,8 @@
 #define ASSIGN '7'
 
 int getch(void);
-void ungetch(int c);
+int ungetch(int c);
+void ungets(char s[]);
 
 /* Be able to deal with negative numbers */
 
@@ -66,8 +67,9 @@ int getop(char s[]) {
 			return EXP;
 		else if (strncmp(s, "pow", 3) == 0)
 			return POW;
-		ungetch(s[1]);
-		ungetch(s[2]);
+
+		s[3] = 0;
+		ungets(s + 1);
 	}
 
 	// Return whatever c is if it's not a number

@@ -1,6 +1,10 @@
 /* getch and ungetch functions which hold a buffer */
 
+/* Write function ungets(s) that will push back an entire string onto the 
+   input */
+
 #include <stdio.h>
+#include <string.h>
 
 #define BUFSIZE 100
 
@@ -13,9 +17,23 @@ int getch(void) {
 }
 
 // ungetch: push character back on input
-void ungetch(int c) {
-	if (bufp >= BUFSIZE)
+int ungetch(int c) {
+	if (bufp >= BUFSIZE) {
 		printf("ungetch Error: too many characters\n");
-	else
+		return 0;
+	}
+	else {
 		buf[bufp++] = c;
+		return 1;
+	}
+}
+
+// ungets: push back a string
+void ungets(char s[]) {
+	// String must be pushed backwards
+	int i = strlen(s) - 1;
+	for (; i >= 0; i--) {
+		if (ungetch(s[i]) == 0)
+			break;
+	}
 }
