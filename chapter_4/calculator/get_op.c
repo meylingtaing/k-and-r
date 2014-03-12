@@ -69,7 +69,9 @@ int getop(char s[]) {
 			return POW;
 
 		s[3] = 0;
-		ungets(s + 1);
+		//ungets(s + 1);
+		ungetch(s[2]);
+		ungetch(s[3]);
 	}
 
 	// Return whatever c is if it's not a number
