@@ -3,17 +3,13 @@
 /* Write function ungets(s) that will push back an entire string onto the 
    input */
 
-/* Ex 4-8 says suppose there will never be more than one character of push
-   back. Well, if that's the case, then buf just needs to be a char, not a 
-   char array. Which completely invalidates 4-7, so I'm not going to bother
-   doing this one. */
-
 #include <stdio.h>
 #include <string.h>
 
 #define BUFSIZE 100
 
-char buf[BUFSIZE];	// Buffer for ungetch
+/* Changed to int to handle EOF */
+int buf[BUFSIZE];	// Buffer for ungetch
 int bufp;			// Buffer pointer -- next free position in buf
 
 // getch: get a (possibly pushed back) character
