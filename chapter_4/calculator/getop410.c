@@ -60,7 +60,7 @@ int getop(char s[]) {
 
 		// Next character must be digit or . to be a number
 		if (!isdigit(line[i]) && line[i] != '.') { 
-			printf("sign = %c, i = %d\n", sign, i);
+			//printf("sign = %c, i = %d\n", sign, i);
 			return sign;
 		}
 	}

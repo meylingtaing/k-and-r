@@ -34,7 +34,7 @@ double peek(void) {
 	if (sp > 0)
 		return val[sp - 1];
 	else {
-		printf("Stack empty\n");
+		//printf("Stack empty\n");
 		return 0.0;
 	}
 }
