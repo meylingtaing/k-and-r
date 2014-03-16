@@ -13,6 +13,8 @@ int main()
 	my_strcat(str1, str2);
 
 	printf("%s\n", str1);
+
+	return 0;
 }
 
 void my_strcat(char *s, char *t) 

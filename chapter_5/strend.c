@@ -17,6 +17,8 @@ int main()
 	printf("%s, %s, %d\n", str2, "apple", strend(str2, "apple"));
 	printf("%s, %s, %d\n", str2, "e", strend(str2, "e"));
 	printf("%s, %s, %d\n", str2, "APPLE", strend(str2, "APPLE"));
+
+	return 0;
 }
 
 int strend(char *s, char *t) 
