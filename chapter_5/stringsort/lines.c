@@ -1,3 +1,5 @@
+/* Rewrite readlines to store lines in an array stored by main */
+
 #include <string.h>
 #include <stdio.h>
 
@@ -7,19 +9,17 @@ int getline_stdin(char *, int);
 char *alloc(int);
 
 /* readlines: read input lines */
-int readlines(char *lineptr[], int maxlines)
+int readlines(char lineptr[][MAXLEN], int maxlines)
 {
 	int len, nlines;
-	char *p, line[MAXLEN];
 
 	nlines = 0;
-	while ( (len = getline_stdin(line, MAXLEN)) > 0) {
-		if (nlines >= maxlines || (p = alloc(len)) == NULL)
+	while ( (len = getline_stdin(lineptr[nlines], MAXLEN)) > 0) {
+		if (nlines >= maxlines)
 			return -1;
 		else {
-			line[len-1] = 0; // delete newline
-			strcpy(p, line);
-			lineptr[nlines++] = p;
+			lineptr[nlines][len - 1] = 0; // delete newline
+			nlines++;
 		}
 	}
 	return nlines;
