@@ -1,3 +1,5 @@
+/* Rewrite day_of_year and month_day with pointers */
+
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -29,14 +31,16 @@ int main(int argc, char **argv)
 int day_of_year(int year, int month, int day)
 {
 	int i, leap;
+	char *p;
 
 	if (year < 0 || month < 1 || month > 12 || 
 		day < 1 || day > daytab[1][month] )
 		return -1;
 
 	leap = (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
+	p = *(daytab + leap);
 	for (i = 1; i < month; i++)
-		day += daytab[leap][i];
+		day += *(p + i);
 
 	return day;
 }
@@ -45,21 +49,33 @@ int day_of_year(int year, int month, int day)
 int month_day(int year, int yearday, int *pmonth, int *pday)
 {
 	int i, leap;
+	char *p;
 
 	// Error checking
 	if (year < 0 || yearday < 1 || yearday > 366)
 		return -1;
 
 	leap = (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
-	if (leap && yearday == 366)
+	if (!leap && yearday == 366)
 		return -1;
 
-
+	p = *(daytab + leap);
 	for (i = 1; yearday > daytab[leap][i]; i++)
-		yearday -= daytab[leap][i];
+		yearday -= *(p + i);
 
 	*pmonth = i;
 	*pday = yearday;
 
 	return 0;
+}
+
+/* month_name: return name of nth month */
+char *month_name(int n)
+{
+	static char *name[] = {
+		"Illegal month", "January", "February", "March", "April", "May", "June",
+		"July", "August", "September", "October", "November", "December"
+	};
+
+	return (n < 1 || n > 12) ? name[0] : name[n];
 }
