@@ -1,10 +1,11 @@
 #include <string.h>
+#include <stdlib.h>
 
 /* qsort: sort v[left] to v[right] into increasing order */
-void qsort(char *v[], int left, int right)
+void my_qsort(void *v[], int left, int right, int (*comp)(void *, void *))
 {
 	int i, last;
-	void swap(char *v[], int i, int j);
+	void swap(void *v[], int i, int j);
 
 	// If there's nothing to sort
 	if (left >= right)
@@ -15,7 +16,7 @@ void qsort(char *v[], int left, int right)
 
 	last = left;
 	for (i = left+1; i <= right; i++) {
-		if (strcmp(v[i], v[left]) < 0)
+		if ((*comp)(v[i], v[left]) < 0)
 			swap(v, ++last, i);
 	}
 
@@ -23,16 +24,30 @@ void qsort(char *v[], int left, int right)
 	swap(v, left, last);
 
 	// Sort the two halves
-	qsort(v, left, last-1);
-	qsort(v, last+1, right);
+	my_qsort(v, left, last-1, comp);
+	my_qsort(v, last+1, right, comp);
 }
 
 /* swap: interchange v[i] and v[j] */
-void swap(char *v[], int i, int j)
+void swap(void *v[], int i, int j)
 {
-	char *temp;
+	void *temp;
 
 	temp = v[i];
 	v[i] = v[j];
 	v[j] = temp;
+}
+
+/* numcmp: compare s1 and s2 numerically */
+int numcmp(char *s1, char *s2)
+{
+	double v1 = atof(s1);
+	double v2 = atof(s2);
+
+	if (v1 < v2)
+		return -1;
+	else if (v1 > v2)
+		return 1;
+	else
+		return 0;
 }
