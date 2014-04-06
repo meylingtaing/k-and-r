@@ -1,5 +1,6 @@
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 /* qsort: sort v[left] to v[right] into increasing order */
 void my_qsort(void *v[], int left, int right, int (*comp)(void *, void *))
@@ -50,4 +51,19 @@ int numcmp(char *s1, char *s2)
 		return 1;
 	else
 		return 0;
+}
+
+/* ignorecasecmp: compare s1 and s2 but ignore case sensitivity */
+int ignorecasecmp(char *s1, char *s2)
+{
+	char c1, c2;
+	int i = 0;
+
+	while ( (c1 = toupper(s1[i])) == (c2 = toupper(s2[i])) ) {
+		if (c1 == 0)
+			return 0;
+		i++;
+	}
+
+	return (c1 - c2);
 }
