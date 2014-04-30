@@ -9,3 +9,9 @@ variablenames: variablenames.c gettoken.c get_characters.c
 
 wordsinlines: wordsinlines.c getword.c get_characters.c llist.c
 	gcc -Wall -Wextra wordsinlines.c getword.c get_characters.c llist.c -o wordsinlines
+
+wordfreqordered: wordfreqordered.c getword.c get_characters.c
+	gcc -Wall -Wextra wordfreqordered.c getword.c get_characters.c -o wordfreqordered
+
+userpw: userpw.c hashtable.c
+	gcc -Wall -Wextra userpw.c hashtable.c -o userpw
